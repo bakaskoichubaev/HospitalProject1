@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Department</title>
+</head>
+<body>
+<div class="wrapper-btn">
+  <a th:href="@{/url}">
+    <button class="btn btn-primary" type="button">back</button>
+  </a>
+
+</div>
+<div style="text-align: center" class="container mt-3">
+  <table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="department : ${departments}">
+      <td style="align-content: center" th:text="${department.id}"></td>
+      <td style="align-content: center" th:text="${department.name}"></td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+<p style="text-align:center;">
+  <a class="btn btn-outline-primary" role="button" href="/departments/new">Add new department</a></p>
+
+<br/>
+
+</body>
+</html>

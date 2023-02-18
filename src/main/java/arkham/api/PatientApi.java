@@ -3,6 +3,8 @@ package arkham.api;
 import arkham.services.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -15,4 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PatientApi {
 
     private final PatientService patientService;
+
+    @GetMapping
+    public String getAllPatients(Model model){
+        model.addAttribute("patients", patientService.findAll());
+        return "patient/patientPage";
+    }
 }

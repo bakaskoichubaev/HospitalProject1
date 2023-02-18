@@ -6,8 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.FetchType.EAGER;
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.*;
 
 /**
@@ -28,12 +32,12 @@ public class Appointment {
     private LocalDate date;
 
 
-    @ManyToOne(fetch = EAGER)
+    @ManyToOne(cascade = {REFRESH,DETACH,MERGE, PERSIST}, fetch = EAGER)
     private Patient patient;
 
-    @ManyToOne(fetch = EAGER)
+    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = EAGER)
     private Doctor doctor;
 
-    @OneToOne(fetch = EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = LAZY)
     private Department department;
 }

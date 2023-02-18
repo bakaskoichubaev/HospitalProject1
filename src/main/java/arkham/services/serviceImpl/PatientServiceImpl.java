@@ -1,9 +1,13 @@
 package arkham.services.serviceImpl;
 
+import arkham.models.Patient;
+import arkham.repositories.PatientRepo;
 import arkham.services.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author :ЛОКИ Kelsivbekov
@@ -13,4 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class PatientServiceImpl implements PatientService {
+    private final PatientRepo patientRepo;
+    @Override
+    public List<Patient> findAll() {
+        return patientRepo.findAll();
+    }
 }

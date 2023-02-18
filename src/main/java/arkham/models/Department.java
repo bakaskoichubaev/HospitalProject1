@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.FetchType.*;
 import static jakarta.persistence.GenerationType.*;
 
@@ -29,6 +30,9 @@ public class Department {
     private String name;
 
 
-    @ManyToMany(fetch = LAZY)
-    List<Doctor> doctors = new ArrayList<>();
+    @ManyToMany(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = LAZY)
+    private List<Doctor> doctors = new ArrayList<>();
+
+    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = EAGER)
+    private Hospital hospital;
 }

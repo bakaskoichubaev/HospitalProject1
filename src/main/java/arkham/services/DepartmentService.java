@@ -1,6 +1,9 @@
 package arkham.services;
 
+import arkham.models.Department;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author :ЛОКИ Kelsivbekov
@@ -8,4 +11,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface DepartmentService {
+    List<Department> findAll();
+
+    void save(Long id, Department department);
 }

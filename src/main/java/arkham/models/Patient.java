@@ -38,6 +38,8 @@ public class Patient {
 
     private String email;
 
+    private String image;
+
     @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST},
             fetch = EAGER)
     private Hospital hospital;

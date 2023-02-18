@@ -29,16 +29,21 @@ public class Hospital {
     private String name;
     private String address;
 
+    private String image;
 
 
-    @OneToMany(cascade = {ALL}, fetch = LAZY)
+
+    @OneToMany(mappedBy = "hospital",cascade = {ALL}, fetch = LAZY)
     private List<Doctor> doctors = new ArrayList<>();
 
-    @OneToMany(mappedBy = "hospital", fetch = LAZY)
+    @OneToMany(mappedBy = "hospital", cascade = {ALL}, fetch = LAZY)
     private List<Patient> patients = new ArrayList<>();
 
-    @OneToMany(cascade = {ALL}, fetch = LAZY)
+    @OneToMany(mappedBy = "hospital",cascade = {ALL}, fetch = LAZY)
     private List<Department> departments = new ArrayList<>();
+    public void addDepartment(Department department){
+        departments.add(department);
+    }
 
 
     @OneToMany(cascade = {ALL}, fetch = LAZY)
