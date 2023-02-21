@@ -24,13 +24,13 @@ import static jakarta.persistence.GenerationType.*;
 public class Department {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "department_id_gen")
-    @SequenceGenerator(name = "department_id_gen", sequenceName = "department_id_seq", allocationSize = 12)
+    @SequenceGenerator(name = "department_id_gen", sequenceName = "department_id_seq", allocationSize = 1)
     private Long id;
 
     private String name;
 
 
-    @ManyToMany(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = LAZY)
+    @ManyToMany(mappedBy = "departments", cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = LAZY)
     private List<Doctor> doctors = new ArrayList<>();
     public void addDoctor(Doctor doctor){
         if (doctors==null){
@@ -47,6 +47,4 @@ public class Department {
         this.hospital = hospital;
     }
 
-//    public void addDoctor(Doctor doctor) {
-//    }
 }

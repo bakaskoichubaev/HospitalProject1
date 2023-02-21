@@ -25,13 +25,16 @@ public class DepartmentApi {
     private final HospitalService hospitalService;
     private final DoctorService doctorService;
 
-    @GetMapping("{id}")
-    public String getAllDepartments(Model model, @PathVariable("id") Long id) {
+
+    @GetMapping("/{id}")
+    public String getAllDepartments(Model model,
+                                    @PathVariable("id") Long id ,
+                                    @ModelAttribute("doctor") Doctor doctor ){
         model.addAttribute("departments", departmentService.findAll(id));
+        model.addAttribute("doctors", doctorService.getAllDoctors(id));
         model.addAttribute("hospitalId",id);
         return "department/departments";
     }
-
 
 
 
@@ -53,14 +56,28 @@ public class DepartmentApi {
         return "/department/saveDepartment";
     }
 
-//    @PostMapping("/{departmentId}/assignDoctor")
-////    private String assignGroup(@PathVariable("departmentId") Long departmentId,
-////                               @ModelAttribute("doctor") Doctor doctor)
-////            throws IOException {
-////        System.out.println(doctor);
-////        doctorService.assignDoctor(departmentId, doctor.getId());
-////        return "redirect:/departments/"+departmentId;
-////    }
+
+
+
+
+
+
+
+
+    @PostMapping("{hospitalId}/{departmentId}/assignDoctor")
+    private String assignDoctor(@PathVariable("hospitalId") Long hospitalId,
+                               @PathVariable("departmentId") Long departmentId,
+                               @ModelAttribute("doctor") Doctor doctor)
+            throws IOException {
+        System.out.println(doctor);
+        Long id = doctor.getId();
+        doctorService.assignDoctor(departmentId, id);
+        return "redirect:/departments/" + hospitalId;
+    }
+
+
+
+
 
 
 

@@ -20,4 +20,5 @@ public interface DepartmentRepo {
 
     void update(Department department);
 
+//    void assignDepartment(Long doctorId, Long departmentId);
 }

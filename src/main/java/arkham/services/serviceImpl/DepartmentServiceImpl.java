@@ -2,11 +2,13 @@ package arkham.services.serviceImpl;
 
 import arkham.exeptions.BudRequestExeption;
 import arkham.models.Department;
+import arkham.models.Doctor;
 import arkham.models.Hospital;
 import arkham.repositories.DepartmentRepo;
+import arkham.repositories.DoctorRepo;
 import arkham.repositories.HospitalRepo;
 import arkham.services.DepartmentService;
-import arkham.services.HospitalService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,18 +24,22 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepo departmentRepo;
     private final HospitalRepo hospitalRepo;
+    private final DoctorRepo doctorRepo;
 
 
-    public DepartmentServiceImpl(DepartmentRepo departmentRepo, HospitalRepo hospitalRepo) {
+    @Autowired
+    public DepartmentServiceImpl(DepartmentRepo departmentRepo, HospitalRepo hospitalRepo, DoctorRepo doctorRepo) {
         this.departmentRepo = departmentRepo;
         this.hospitalRepo = hospitalRepo;
-
+        this.doctorRepo = doctorRepo;
     }
 
     @Override
     public List<Department> findAll(Long id) {
         return departmentRepo.findAll(id);
     }
+
+
 
     @Override
     public void save(Long hospitalId, Department department) throws BudRequestExeption {
@@ -58,4 +64,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void update(Department department) {
         departmentRepo.update(department);
     }
+
+//    @Override
+//    public void assignDepartment(Long doctorId, Long departmentId) {
+//        departmentRepo.assignDepartment(doctorId, departmentId);
+//    }
 }

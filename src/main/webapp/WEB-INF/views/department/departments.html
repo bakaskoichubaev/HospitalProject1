@@ -12,6 +12,11 @@
         <button class="btn btn-primary" type="button">back</button>
     </a>
 </div>
+<div class="wrapper-btn">
+    <a th:href="@{/hospitals/departments/{id}(id=${hospitalId})}">
+        <button class="btn btn-primary" type="button">REFRESH</button>
+    </a>
+</div>
 <div class="container mt-3">
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -31,15 +36,14 @@
                     <button class="btn btn-primary" type="submit">Edit</button>
                 </a>
             </td>
-
             <td>
                 <form th:method="POST"
-                      th:action="@{/{hospitalId}/{departmentId}/assignDoctor(hospitalId=${hospitalId},departmentId=${department.getId()})}">
+                      th:action="@{/departments/{hospitalId}/{departmentId}/assignDoctor(hospitalId=${hospitalId},departmentId=${department.getId()})}">
                     <select name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                            th:object="${doctor6}" th:field="*{id}">
+                            th:object="${doctor}" th:field="*{id}">
                         <option th:each="doctor : ${doctors}"
                                 th:value="${doctor.id}"
-                                th:text="${doctor.getFirstName()}"></option>
+                                th:text="${doctor.firsName}"></option>
                     </select>
                     <input type="submit" value="submit"/>
                 </form>
@@ -50,6 +54,8 @@
     <li class="nav-item">
         <a class="nav-link" th:href="@{/departments/new/{id} (id=${hospitalId})}" href="#">Add new Department</a>
     </li>
+    <br>
+
 </div>
 
 </body>

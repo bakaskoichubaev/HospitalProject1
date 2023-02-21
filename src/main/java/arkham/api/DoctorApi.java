@@ -2,12 +2,15 @@ package arkham.api;
 
 import arkham.models.Department;
 import arkham.models.Doctor;
+import arkham.services.DepartmentService;
 import arkham.services.DoctorService;
 import arkham.services.HospitalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 /**
  * @author :ЛОКИ Kelsivbekov
@@ -22,10 +25,14 @@ public class DoctorApi{
 
     private final HospitalService hospitalService;
 
+    private final DepartmentService departmentService;
 
     @GetMapping("/{id}")
-    public String getAllDoctors(Model model, @PathVariable Long id){
+    public String getAllDoctors(Model model,
+                                @PathVariable Long id,
+                                @ModelAttribute("department")Department department){
         model.addAttribute("doctors",doctorService.getAllDoctors(id));
+        model.addAttribute("departments",departmentService.findAll(id));
         model.addAttribute("hospitalId", id);
         return "/doctor/doctorPage";
     }
@@ -44,6 +51,31 @@ public class DoctorApi{
         model.addAttribute("hospitalId", id);
         return "/doctor/saveDoctor";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+//    @PostMapping("{hospitalId}/{doctorId}/assignDepartment")
+//    private String assignDoctor(@PathVariable("hospitalId")Long hospitalId,
+//                               @PathVariable("doctorId")Long doctorId,
+//                               @ModelAttribute("department")Department department) {
+//        Long departmentId = department.getId();
+//        departmentService.assignDepartment(doctorId,departmentId);
+//        return "redirect:/doctors/"+hospitalId;
+//    }
+
+
+
+
+
 
 
 

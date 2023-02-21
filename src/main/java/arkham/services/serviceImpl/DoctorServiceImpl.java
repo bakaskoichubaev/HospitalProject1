@@ -5,7 +5,9 @@ import arkham.models.Hospital;
 import arkham.repositories.DoctorRepo;
 import arkham.repositories.HospitalRepo;
 import arkham.services.DoctorService;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +18,18 @@ import java.util.List;
  * @created 17.02.2023
  */
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepo doctorRepo;
-
     private final HospitalRepo hospitalRepo;
+
+    @Autowired
+    public DoctorServiceImpl(DoctorRepo doctorRepo, HospitalRepo hospitalRepo) {
+        this.doctorRepo = doctorRepo;
+        this.hospitalRepo = hospitalRepo;
+    }
+
+
 
     @Override
     public List<Doctor> getAllDoctors(Long id) {
