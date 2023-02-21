@@ -33,12 +33,17 @@ public class Patient {
     private String lastName;
     @Column(name = "phone_number")
     private String phoneNumber;
-
     private Gender gender;
 
     private String email;
 
-    private String image;
+    public Patient(String firstName, String lastName, String phoneNumber, Gender gender, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.email = email;
+    }
 
     @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST},
             fetch = EAGER)

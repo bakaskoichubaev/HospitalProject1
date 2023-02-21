@@ -24,4 +24,14 @@ public class AppointmentRepoImpl implements AppointmentRepo {
     public List<Appointment> findAll() {
         return entityManager.createQuery("select a from Appointment a", Appointment.class).getResultList();
     }
+
+    @Override
+    public Appointment findById(Long appointmentId) {
+        return entityManager.find(Appointment.class, appointmentId);
+    }
+
+    @Override
+    public void update(Appointment appointment) {
+        entityManager.merge(appointment);
+    }
 }

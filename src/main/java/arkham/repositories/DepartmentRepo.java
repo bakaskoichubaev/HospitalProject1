@@ -1,6 +1,7 @@
 package arkham.repositories;
 
 import arkham.models.Department;
+import arkham.models.Hospital;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,8 +12,12 @@ import java.util.List;
  */
 @Repository
 public interface DepartmentRepo {
-    List<Department> findAll();
+    List<Department> findAll(Long id);
 
     void save(Department department);
+
+    Department findById(Long departmentId);
+
+    void update(Department department);
 
 }

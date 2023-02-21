@@ -11,5 +11,12 @@ import java.util.List;
  */
 @Service
 public interface PatientService {
-    List<Patient> findAll();
+    List<Patient> findAll(Long id);
+
+    Patient findById(Long patientId);
+
+    void update(Patient patient);
+
+    void save(Long patientId, Patient patient);
+
 }

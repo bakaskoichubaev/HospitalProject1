@@ -11,7 +11,12 @@ import java.util.List;
  */
 @Service
 public interface DepartmentService {
-    List<Department> findAll();
+    List<Department> findAll(Long id);
 
     void save(Long id, Department department);
+
+    Department findById(Long departmentId);
+
+    void update(Department department);
+
 }

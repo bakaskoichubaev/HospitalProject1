@@ -1,0 +1,56 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments</title>
+</head>
+<body>
+<div class="wrapper-btn">
+    <a th:href="@{/hospitals}">
+        <button class="btn btn-primary" type="button">back</button>
+    </a>
+</div>
+<div class="container mt-3">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Hospital</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="department : ${departments}">
+            <td th:text="${department.id}"></td>
+            <td th:text="${department.name}"></td>
+            <td th:text="${department.hospital.name}"></td>
+            <td>
+                <a th:href="@{/departments/{id}/edit(id=${hospitalId})}">
+                    <button class="btn btn-primary" type="submit">Edit</button>
+                </a>
+            </td>
+
+            <td>
+                <form th:method="POST"
+                      th:action="@{/{hospitalId}/{departmentId}/assignDoctor(hospitalId=${hospitalId},departmentId=${department.getId()})}">
+                    <select name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            th:object="${doctor6}" th:field="*{id}">
+                        <option th:each="doctor : ${doctors}"
+                                th:value="${doctor.id}"
+                                th:text="${doctor.getFirstName()}"></option>
+                    </select>
+                    <input type="submit" value="submit"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/departments/new/{id} (id=${hospitalId})}" href="#">Add new Department</a>
+    </li>
+</div>
+
+</body>
+</html>

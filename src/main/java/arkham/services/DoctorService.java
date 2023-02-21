@@ -11,6 +11,15 @@ import java.util.List;
  */
 @Service
 public interface DoctorService {
-    List<Doctor> getAllDoctors();
+    List<Doctor> getAllDoctors(Long id);
+
+    void save(Long hospitalId, Doctor doctor);
+
+    Doctor findById(Long doctorId);
+
+    void update(Doctor doctor);
+
+    void assignDoctor(Long departmentId, Long doctorId);
+
 
 }

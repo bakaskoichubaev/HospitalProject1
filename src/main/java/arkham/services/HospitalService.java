@@ -1,6 +1,7 @@
 package arkham.services;
 
 import arkham.models.Department;
+import arkham.models.Doctor;
 import arkham.models.Hospital;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +22,5 @@ public interface HospitalService {
     Hospital getHospitalById(Long hospitalId);
 
     void update(Hospital hospital);
+
 }

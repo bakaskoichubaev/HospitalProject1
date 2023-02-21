@@ -11,5 +11,13 @@ import java.util.List;
  */
 @Repository
 public interface DoctorRepo {
-    List<Doctor> getAllDoctors();
+    List<Doctor> getAllDoctors(Long id);
+
+    void save(Doctor doctor);
+
+    Doctor findById(Long doctorId);
+
+    void update(Doctor doctor);
+
+    void assignDoctor(Long departmentId, Long doctorId);
 }

@@ -13,4 +13,8 @@ import java.util.List;
 public interface AppointmentRepo {
     List<Appointment> findAll();
 
+    Appointment findById(Long appointmentId);
+
+    void update(Appointment appointment);
+
 }

@@ -40,4 +40,5 @@ public class Appointment {
 
     @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = LAZY)
     private Department department;
+
 }

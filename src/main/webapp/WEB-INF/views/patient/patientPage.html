@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Patients</title>
+    <title>Doctors</title>
 </head>
 <body>
 <div class="wrapper-btn">
-    <a th:href="@{/url}">
+    <a th:href="@{/hospitals}">
         <button class="btn btn-primary" type="button">back</button>
     </a>
-    <!--  <a th:href="@{/companies/savePage}">-->
-    <!--    <button class="btn btn-primary" type="button">Add</button>-->
-    <!--  </a>-->
 </div>
 <div class="container mt-3">
     <table class="table table-striped">
@@ -20,30 +17,46 @@
             <th>Id</th>
             <th>First name</th>
             <th>Last name</th>
-            <th>Phone number</th>
-            <th>Email</th>
             <th>Gender</th>
+            <th>Email</th>
+            <th>Phone number</th>
+            <th>Hospital</th>
         </tr>
         </thead>
         <tbody>
+        <!--        <tr th:each="patient : ${patients}">-->
+        <!--            <td th:text="${patient.id}"></td>-->
+        <!--            <td th:text="${patient.firstName}"></td>-->
+        <!--            <td th:text="${patient.lastName}"></td>-->
+        <!--            <td th:text="${patient.gender}"></td>-->
+        <!--            <td th:text="${patient.email}"></td>-->
+        <!--            <td th:text="${patient.phoneNumber}"></td>-->
+        <!--            <td th:text="${patient.hospital.name}"></td>-->
+        <!--            <td>-->
+        <!--                <a th:href="@{/patients/{hospitalId}(hospitalId=${patient.hospital.id})/{patientId}/edit(patientId=${patient.getId()})}">-->
+        <!--                    <button class="btn btn-primary" type="submit">Edit</button>-->
+        <!--                </a>-->
+        <!--            </td>-->
+        <!--        </tr>-->
         <tr th:each="patient : ${patients}">
             <td th:text="${patient.id}"></td>
             <td th:text="${patient.firstName}"></td>
             <td th:text="${patient.lastName}"></td>
-            <td th:text="${patient.phoneNumber}"></td>
-            <td th:text="${patient.email}"></td>
             <td th:text="${patient.gender}"></td>
-            <!--            <td>-->
-            <!--                <a th:href="@{/companies(id=${company.id})}">-->
-            <!--                    <button class="btn btn-primary" type="submit">edit</button>-->
-            <!--                </a>-->
-            <!--                <a th:href="@{/url/{id}(id=${peremenyi.id})}">-->
-            <!--                    <button class="btn btn-danger" type="submit">delete</button>-->
-            <!--                </a>-->
-            <!--            </td>-->
+            <td th:text="${patient.email}"></td>
+            <td th:text="${patient.phoneNumber}"></td>
+            <td th:text="${patient.hospital.name}"></td>
+            <td>
+                <a th:href="@{/patients/{hospitalId}(hospitalId=${patient.hospital.id})/{patientId}/edit(patientId=${patient.getId()})}">
+                    <button class="btn btn-primary" type="submit">Edit</button>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/patients/new/{id}(id=${hospitalId})}" href="#">Add new Patient</a>
+    </li>
 </div>
 
 </body>

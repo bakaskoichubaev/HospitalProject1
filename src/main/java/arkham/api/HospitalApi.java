@@ -32,7 +32,7 @@ public class HospitalApi {
 
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("newCompany") Hospital hospital){
+    public String save(@ModelAttribute("newHospital") Hospital hospital){
         hospitalService.save(hospital);
         return "redirect:/hospitals";
     }
@@ -54,6 +54,4 @@ public class HospitalApi {
         hospitalService.update(hospital);
         return "redirect:/hospitals";
     }
-
-
 }

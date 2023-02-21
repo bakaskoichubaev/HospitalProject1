@@ -24,7 +24,7 @@ import static jakarta.persistence.GenerationType.*;
 public class Doctor {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "doctor_id_gen")
-    @SequenceGenerator(name = "doctor_id_gen",sequenceName = "doctor_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "doctor_id_gen", sequenceName = "doctor_id_seq", allocationSize = 1)
     private Long id;
     @Column(name = "first_name")
     private String firsName;
@@ -35,12 +35,21 @@ public class Doctor {
 
     private String email;
 
-    @ManyToMany(mappedBy = "doctors",cascade = {DETACH, REFRESH, MERGE, PERSIST}, fetch = LAZY)
+    @ManyToMany(mappedBy = "doctors", cascade = {DETACH, REFRESH, MERGE, PERSIST}, fetch = LAZY)
     private List<Department> departments = new ArrayList<>();
+
+    public void addDepartment(Department department) {
+        if (departments == null) {
+            departments= new ArrayList<>();
+        }
+        departments.add(department);
+    }
 
     @OneToMany(mappedBy = "doctor", cascade = {DETACH, MERGE, REFRESH, PERSIST}, fetch = LAZY)
     private List<Appointment> appointments = new ArrayList<>();
 
     @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = EAGER)
     private Hospital hospital;
+
+
 }

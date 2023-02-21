@@ -1,13 +1,16 @@
 package arkham.api;
 
 import arkham.models.Department;
-import arkham.models.Hospital;
+import arkham.models.Doctor;
 import arkham.services.DepartmentService;
+import arkham.services.DoctorService;
 import arkham.services.HospitalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 /**
  * @author :ЛОКИ Kelsivbekov
@@ -20,39 +23,62 @@ public class DepartmentApi {
 
     private final DepartmentService departmentService;
     private final HospitalService hospitalService;
+    private final DoctorService doctorService;
 
-    @GetMapping
-    public String getAllDepartments(Model model){
-        model.addAttribute("departments",departmentService.findAll());
-        return "department/departmentPage";
+    @GetMapping("{id}")
+    public String getAllDepartments(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("departments", departmentService.findAll(id));
+        model.addAttribute("hospitalId",id);
+        return "department/departments";
     }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute("newDepartment")Department department,
-                         @RequestParam("hospitalId") Long id){
-        departmentService.save(id, department);
-        return "redirect:/departments";
+
+
+
+
+
+
+    @PostMapping("/save/{departmentId}")
+    public String save(@ModelAttribute("newDepartment") Department department,
+                       @PathVariable Long departmentId) {
+        departmentService.save(departmentId, department);
+        return "redirect:/departments/"+departmentId;
     }
 
-    @GetMapping("/new")
-    public String creat(Model model){
+    @GetMapping("/new/{id}")
+    public String create(Model model,
+                         @PathVariable("id")Long id) {
         model.addAttribute("newDepartment", new Department());
-        model.addAttribute("hospitals", hospitalService.findAll());
-        return "department/newDepartment";
+        model.addAttribute("hospitalId", id);
+        return "/department/saveDepartment";
     }
 
+//    @PostMapping("/{departmentId}/assignDoctor")
+////    private String assignGroup(@PathVariable("departmentId") Long departmentId,
+////                               @ModelAttribute("doctor") Doctor doctor)
+////            throws IOException {
+////        System.out.println(doctor);
+////        doctorService.assignDoctor(departmentId, doctor.getId());
+////        return "redirect:/departments/"+departmentId;
+////    }
 
-//    @GetMapping("/new")
-//    public String create(Model model){
-//        model.addAttribute("newHospital", new Hospital());
-//        return "hospital/newHospital";
+
+
+
+
+
+//    @GetMapping("{departmentId}/edit")
+//    public String edit(@PathVariable("departmentId") Long departmentId, Model model, @PathVariable Long id) {
+//        model.addAttribute("department", departmentService.findById(departmentId));
+//        model.addAttribute("hospitalId",id);
+//        return "/department/update";
 //    }
 //
-//
-//    @PostMapping("/save")
-//    public String save(@ModelAttribute("newCompany") Hospital hospital){
-//        hospitalService.save(hospital);
-//        return "redirect:/hospitals";
+//    @PostMapping("/{id}/update")
+//    public String update(@ModelAttribute("department") Department department) {
+//        departmentService.update(department);
+//        return "redirect:/{id}/departments";
 //    }
+
 
 }

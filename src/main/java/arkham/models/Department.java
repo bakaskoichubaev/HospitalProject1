@@ -32,7 +32,21 @@ public class Department {
 
     @ManyToMany(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = LAZY)
     private List<Doctor> doctors = new ArrayList<>();
+    public void addDoctor(Doctor doctor){
+        if (doctors==null){
+            doctors=new ArrayList<>();
+        }
+        doctors.add(doctor);
+    }
 
-    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = EAGER)
+    @ManyToOne(cascade = {REFRESH,DETACH, MERGE, PERSIST})
     private Hospital hospital;
+
+    public Department(String name, Hospital hospital) {
+        this.name = name;
+        this.hospital = hospital;
+    }
+
+//    public void addDoctor(Doctor doctor) {
+//    }
 }

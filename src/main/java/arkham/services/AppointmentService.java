@@ -14,4 +14,8 @@ import java.util.List;
 public interface AppointmentService {
     List<Appointment> findAll();
 
+    Appointment findById(Long appointmentId);
+
+    void update(Appointment appointment);
+
 }

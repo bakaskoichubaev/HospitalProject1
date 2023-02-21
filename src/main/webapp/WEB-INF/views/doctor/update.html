@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update doctor</title>
+</head>
+<body>
+
+<form  th:action="@{/doctors/{id}/update(id=${doctor.getId()})}" th:object="${doctor}" th:method="POST">
+  <label for="firstname">First name: </label>
+  <input type="text" th:field="*{firsName}" id="firstname"/>
+  <!--    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>-->
+  <br/>
+  <label for="lastname">Last name: </label>
+  <input type="text" th:field="*{lastName}" id="lastname"/>
+  <!--    <div style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Age Error</div>-->
+  <br/>
+  <label for="position">Position: </label>
+  <input type="text" th:field="*{position}" id="position"/>
+  <!--    <div style="color:red" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Image Error</div>-->
+  <br/>
+  <label for="email">Email: </label>
+  <input type="text" th:field="*{email}" id="email"/>
+  <!--    <div style="color:red" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Image Error</div>-->
+  <br/>
+  <input type="submit" value="Update!"/>
+</form>
+
+</body>
+</html>
