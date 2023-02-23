@@ -15,8 +15,9 @@ public interface PatientRepo {
 
     Patient findById(Long patientId);
 
-    void update(Patient patient);
+    void update(Long id,Patient patient);
 
-    void save(Patient patient);
+    void save(Long hospitalId,Patient patient);
 
+    void deletePatient(Long id);
 }

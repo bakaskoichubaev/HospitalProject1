@@ -5,6 +5,11 @@
     <title>New Hospital</title>
 </head>
 <body>
+<div class="wrapper-btn">
+    <a th:href="@{/hospitals}">
+        <button class="btn btn-primary" type="button">back</button>
+    </a>
+</div>
 <form th:method="POST" th:action="@{save}" th:object="${newHospital}">
     <div>
         <label for="name">Name</label>

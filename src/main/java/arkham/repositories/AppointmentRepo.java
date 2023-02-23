@@ -11,10 +11,12 @@ import java.util.List;
  */
 @Repository
 public interface AppointmentRepo {
-    List<Appointment> findAll();
+    List<Appointment> findAll(Long id);
 
     Appointment findById(Long appointmentId);
 
     void update(Appointment appointment);
+
+    void save(Appointment appointment);
 
 }

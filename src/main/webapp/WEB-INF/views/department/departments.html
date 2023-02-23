@@ -32,14 +32,19 @@
             <td th:text="${department.name}"></td>
             <td th:text="${department.hospital.name}"></td>
             <td>
-                <a th:href="@{/departments/{id}/edit(id=${hospitalId})}">
+                <a th:href="@{/departments/edit/{id}(id=${department.id})}">
                     <button class="btn btn-primary" type="submit">Edit</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/departments/{hospitalId}/{id}/delete(hospitalId=${hospitalId},id=${department.id})}">
+                    <button class="btn btn-primary" type="submit">Delete</button>
                 </a>
             </td>
             <td>
                 <form th:method="POST"
                       th:action="@{/departments/{hospitalId}/{departmentId}/assignDoctor(hospitalId=${hospitalId},departmentId=${department.getId()})}">
-                    <select name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example"
+                    <select name="department" class="form-select form-select-sm" aria-label=".form-select-sm example"
                             th:object="${doctor}" th:field="*{id}">
                         <option th:each="doctor : ${doctors}"
                                 th:value="${doctor.id}"

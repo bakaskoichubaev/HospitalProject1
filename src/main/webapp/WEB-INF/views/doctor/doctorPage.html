@@ -29,22 +29,15 @@
             <td th:text="${doctor.position}"></td>
             <td th:text="${doctor.hospital.name}"></td>
             <td>
-                <a th:href="@{/doctors/{hospitalId}(hospitalId=${doctor.hospital.id})/{doctorId}/edit(doctorId=${doctor.getId()})}">
+                <a th:href="@{/doctors/edit/{id}(id=${doctor.id})}">
                     <button class="btn btn-primary" type="submit">Edit</button>
                 </a>
             </td>
-<!--            <td>-->
-<!--                <form th:method="POST"-->
-<!--                      th:action="@{/doctors/{hospitalId}/{doctorId}/assignDepartment(hospitalId=${hospitalId},doctorId=${doctor.getId()})}">-->
-<!--                    <select name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example"-->
-<!--                            th:object="${department}" th:field="*{id}">-->
-<!--                        <option th:each="ddd : ${departments}"-->
-<!--                                th:value="${ddd.id}"-->
-<!--                                th:text="${ddd.name}"></option>-->
-<!--                    </select>-->
-<!--                    <input type="submit" value="submit"/>-->
-<!--                </form>-->
-<!--            </td>-->
+            <td>
+                <a th:href="@{/doctors/{hospitalId}/{id}/delete(hospitalId=${hospitalId},id=${doctor.id})}">
+                    <button class="btn btn-primary" type="submit">Delete</button>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>

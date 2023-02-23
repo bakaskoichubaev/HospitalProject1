@@ -1,5 +1,7 @@
 package arkham.services.serviceImpl;
 
+import arkham.exeptions.BudRequestExeption;
+import arkham.models.Department;
 import arkham.models.Hospital;
 import arkham.models.Patient;
 import arkham.repositories.HospitalRepo;
@@ -39,8 +41,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void update(Patient patient) {
-        patientRepo.update(patient);
+    public void update(Long patientId,Patient patient) {
+        patientRepo.update(patientId,patient);
     }
 
     @Override
@@ -48,6 +50,23 @@ public class PatientServiceImpl implements PatientService {
         Hospital hospitalById = hospitalRepo.getHospitalById(hospitalId);
         hospitalById.addPatient(patient);
         patient.setHospital(hospitalById);
-        patientRepo.save(patient);
+        patientRepo.save(hospitalId,patient);
+    }
+//    @Override
+//    public void save(Long hospitalId, Department department) throws BudRequestExeption {
+//        Hospital hospital = hospitalRepo.getHospitalById(hospitalId);
+//        for (Department dep : departmentRepo.findAll(hospital.getId())) {
+//            if (dep.getName().equals(department.getName())) {
+//                throw new BudRequestExeption();
+//            }
+//        }
+//        hospital.addDepartment(department);
+//        department.setHospital(hospital);
+//        departmentRepo.save(department);
+//    }
+
+    @Override
+    public void deletePatient(Long id) {
+        patientRepo.deletePatient(id);
     }
 }

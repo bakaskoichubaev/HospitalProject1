@@ -4,6 +4,7 @@ import arkham.models.Department;
 import arkham.models.Hospital;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -12,13 +13,14 @@ import java.util.List;
  */
 @Repository
 public interface DepartmentRepo {
-    List<Department> findAll(Long id);
+    List<Department> findAll(Long hospitalId);
 
     void save(Department department);
 
     Department findById(Long departmentId);
 
-    void update(Department department);
+    void update(Long departmentId,Department department);
 
-//    void assignDepartment(Long doctorId, Long departmentId);
+
+    void delete(Long id);
 }

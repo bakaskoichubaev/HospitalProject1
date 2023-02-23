@@ -12,10 +12,11 @@ import java.util.List;
 @Service
 
 public interface AppointmentService {
-    List<Appointment> findAll();
+    List<Appointment> findAll(Long id);
 
     Appointment findById(Long appointmentId);
 
     void update(Appointment appointment);
 
+    void save(Long hospitalId, Appointment appointment);
 }

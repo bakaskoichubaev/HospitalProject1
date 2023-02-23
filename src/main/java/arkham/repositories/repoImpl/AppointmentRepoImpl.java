@@ -21,8 +21,9 @@ public class AppointmentRepoImpl implements AppointmentRepo {
     @PersistenceContext
     private final EntityManager entityManager;
     @Override
-    public List<Appointment> findAll() {
-        return entityManager.createQuery("select a from Appointment a", Appointment.class).getResultList();
+    public List<Appointment> findAll(Long id) {
+        return entityManager.createQuery("select a from Appointment a where a.doctor.id=:id", Appointment.class)
+                .setParameter("id",id).getResultList();
     }
 
     @Override
@@ -32,6 +33,11 @@ public class AppointmentRepoImpl implements AppointmentRepo {
 
     @Override
     public void update(Appointment appointment) {
+        entityManager.merge(appointment);
+    }
+
+    @Override
+    public void save(Appointment appointment) {
         entityManager.merge(appointment);
     }
 }

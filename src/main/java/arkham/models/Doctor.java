@@ -35,7 +35,7 @@ public class Doctor {
 
     private String email;
 
-    @ManyToMany(cascade = {DETACH, REFRESH, MERGE, PERSIST}, fetch = LAZY)
+    @ManyToMany(mappedBy = "doctors", cascade = {DETACH, REFRESH, MERGE, PERSIST}, fetch = LAZY)
     private List<Department> departments = new ArrayList<>();
 
     public void addDepartment(Department department) {

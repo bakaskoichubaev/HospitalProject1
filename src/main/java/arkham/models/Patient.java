@@ -45,8 +45,7 @@ public class Patient {
         this.email = email;
     }
 
-    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST},
-            fetch = EAGER)
+    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST, REMOVE})
     private Hospital hospital;
 
     @OneToMany(mappedBy = "patient", cascade = {ALL}, fetch = LAZY)

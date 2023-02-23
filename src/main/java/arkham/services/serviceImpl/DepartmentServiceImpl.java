@@ -2,7 +2,6 @@ package arkham.services.serviceImpl;
 
 import arkham.exeptions.BudRequestExeption;
 import arkham.models.Department;
-import arkham.models.Doctor;
 import arkham.models.Hospital;
 import arkham.repositories.DepartmentRepo;
 import arkham.repositories.DoctorRepo;
@@ -35,8 +34,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> findAll(Long id) {
-        return departmentRepo.findAll(id);
+    public List<Department> findAll(Long hospitalId) {
+        return departmentRepo.findAll(hospitalId);
     }
 
 
@@ -61,12 +60,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void update(Department department) {
-        departmentRepo.update(department);
+    public void update(Long departmentId, Department department) {
+        departmentRepo.update(departmentId,department);
     }
 
-//    @Override
-//    public void assignDepartment(Long doctorId, Long departmentId) {
-//        departmentRepo.assignDepartment(doctorId, departmentId);
-//    }
+    @Override
+    public void deletePatient(Long id) {
+        departmentRepo.delete(id);
+    }
+
+
 }

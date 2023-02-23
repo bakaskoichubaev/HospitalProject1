@@ -54,4 +54,11 @@ public class HospitalApi {
         hospitalService.update(hospital);
         return "redirect:/hospitals";
     }
+
+    @GetMapping("/profile/{hospitalId}")
+    public String profile(@PathVariable("hospitalId") Long hospitalId,
+                          Model model){
+        model.addAttribute("hospitals",hospitalService.getHospitalById(hospitalId));
+        return "hospital/profile";
+    }
 }

@@ -32,13 +32,25 @@ public class Appointment {
     private LocalDate date;
 
 
-    @ManyToOne(cascade = {REFRESH,DETACH,MERGE, PERSIST}, fetch = EAGER)
+    @ManyToOne(cascade = {REFRESH,DETACH,MERGE, PERSIST})
     private Patient patient;
 
-    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = EAGER)
+    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST})
     private Doctor doctor;
 
-    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = LAZY)
+    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST})
     private Department department;
+
+    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST})
+    private Hospital hospital;
+
+    @Transient
+    private Long patientId;
+    @Transient
+    private Long doctorId;
+
+    @Transient
+    private Long departmentId;
+
 
 }

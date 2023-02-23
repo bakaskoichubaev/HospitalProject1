@@ -46,7 +46,7 @@ public class Hospital {
         doctors.add(doctor);
     }
 
-    @OneToMany(mappedBy = "hospital", cascade = {ALL}, fetch = LAZY)
+    @OneToMany(mappedBy = "hospital", cascade = {ALL})
     private List<Patient> patients = new ArrayList<>();
     public void addPatient(Patient patient){
         if (patients==null){
@@ -64,6 +64,12 @@ public class Hospital {
         departments.add(department);
     }
 
-    @OneToMany(cascade = {ALL}, fetch = LAZY)
+    @OneToMany(mappedBy = "hospital",cascade = {ALL}, fetch = LAZY)
     private List<Appointment> appointments = new ArrayList<>();
+    public void addAppointment(Appointment appointment) {
+        if (appointments==null){
+            appointments=new ArrayList<>();
+        }
+        appointments.add(appointment);
+    }
 }

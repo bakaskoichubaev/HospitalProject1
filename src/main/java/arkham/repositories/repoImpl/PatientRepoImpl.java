@@ -23,7 +23,7 @@ public class PatientRepoImpl implements PatientRepo {
     private final EntityManager entityManager;
     @Override
     public List<Patient> findAll(Long hospitalId) {
-        return entityManager.createQuery("select p from Patient p join p.hospital where p.id = :id",
+        return entityManager.createQuery("select p from Patient p join p.hospital f where f.id = :id",
                 Patient.class).setParameter("id",hospitalId).getResultList();
     }
 
@@ -33,12 +33,29 @@ public class PatientRepoImpl implements PatientRepo {
     }
 
     @Override
-    public void update(Patient patient) {
+    public void update(Long id,Patient patient) {
+        Patient patient1 = entityManager.find(Patient.class, id);
+        patient1.setFirstName(patient.getFirstName());
+        patient1.setLastName(patient.getLastName());
+        patient1.setEmail(patient.getEmail());
+        patient1.setGender(patient.getGender());
+        patient1.setPhoneNumber(patient.getPhoneNumber());
+        entityManager.merge(patient1);
+
+    }
+
+    @Override
+    public void save(Long hospitalId,Patient patient) {
+        Hospital hospital = entityManager.find(Hospital.class, hospitalId);
+        hospital.addPatient(patient);
+        patient.setHospital(hospital);
         entityManager.merge(patient);
     }
 
     @Override
-    public void save(Patient patient) {
-        entityManager.merge(patient);
+    public void deletePatient(Long id) {
+        Patient patient = entityManager.find(Patient.class, id);
+        patient.setHospital(null);
+        entityManager.remove(patient);
     }
 }

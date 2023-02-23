@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Save appointment</title>
+</head>
+<body>
+<div class="wrapper-btn">
+    <a th:href="@{/appointments/{id}(id=${hospitalId})}">
+        <button class="btn btn-primary" type="button">back</button>
+    </a>
+</div>
+
+<div class="d-flex justify-content-center">
+    <form class="p-5 bg-light" action="#" th:action="@{/appointments/new/{id}(id=${hospitalId})}"
+          th:object="${newAppointment}" method="post">
+
+        <div class="form-group">
+            <label for="date" class="form-label">Date:</label>
+            <input type="date" th:field="*{date}" id="date" class="form-control form-control-lg"
+            min="2023-02-22" max="2023-12-31" required>
+        </div>
+
+        <div class="form-box">
+            <label for="department">Department</label>
+            <select th:field="*{departmentId}" id="department" name="domain" required>
+                <option th:each="dt : ${departments}" th:value="${dt.getId()}"
+                        th:text="${dt.firstName}">Department
+                </option>
+            </select>
+        </div>
+
+        <div class="form-box">
+            <label for="doctor">Doctor</label>
+            <select th:field="*{doctorId}" id="doctor" name="domain" required>
+                <option th:each="doctor : ${doctors}" th:value="${doctor.getId()}"
+                        th:text="${doctor.firsName}">Patients
+                </option>
+            </select>
+        </div>
+
+
+        <div class="form-box">
+            <label for="patient">Patient</label>
+            <select th:field="*{patientId}" id="patient" name="domain" required>
+                <option th:each="patient : ${patients}" th:value="${patient.getId()}"
+                        th:text="${patient.firstName}">Patients
+                </option>
+            </select>
+        </div>
+
+
+        <div>
+            <input type="submit" value="Save" class="btn btn-primary btn-lg">
+            <div th:if="${param.success}" class="alert alert-success" role="alert">
+                Patient успешно сохранен.
+            </div>
+            <div th:if="${#fields.hasErrors()}" class="alert alert-danger" role="alert">
+                Пожалуйста, исправьте ошибки и попробуйте снова.
+            </div>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

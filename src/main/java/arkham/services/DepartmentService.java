@@ -3,6 +3,7 @@ package arkham.services;
 import arkham.models.Department;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -11,13 +12,14 @@ import java.util.List;
  */
 @Service
 public interface DepartmentService {
-    List<Department> findAll(Long id);
+    List<Department> findAll(Long hospitalId);
 
     void save(Long id, Department department);
 
     Department findById(Long departmentId);
 
-    void update(Department department);
+    void update(Long departmentId,Department department);
 
-//    void assignDepartment(Long doctorId, Long departmentId);
+
+    void deletePatient(Long id);
 }

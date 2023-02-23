@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -21,9 +22,9 @@ public class DepartmentRepoImpl implements DepartmentRepo {
     private final EntityManager entityManager;
 
     @Override
-    public List<Department> findAll(Long id) {
-        return entityManager.createQuery("select d from Department d join d.hospital f where f.id=:id",
-                Department.class).setParameter("id",id).getResultList();
+    public List<Department> findAll(Long hospitalId) {
+        return entityManager.createQuery("SELECT d FROM Department d JOIN d.hospital h WHERE h.id = :id",
+                Department.class).setParameter("id",hospitalId).getResultList();
     }
 
 
@@ -39,19 +40,17 @@ public class DepartmentRepoImpl implements DepartmentRepo {
     }
 
     @Override
-    public void update(Department department) {
-        entityManager.merge(department);
+    public void update(Long departmentId, Department department) {
+        Department department1 = entityManager.find(Department.class, departmentId);
+        department1.setName(department.getName());
+        entityManager.merge(department1);
     }
 
-//    @Override
-//    public void assignDepartment(Long doctorId, Long id) {
-//        Doctor doctor = entityManager.find(Doctor.class, doctorId);
-//        Department department = entityManager.find(Department.class, id);
-//
-//        doctor.addDepartment(department);
-//        department.addDoctor(doctor);
-//
-//        entityManager.merge(doctor);
-//        entityManager.merge(department);
-//    }
+    @Override
+    public void delete(Long id) {
+        Department department = entityManager.find(Department.class, id);
+        department.setHospital(null);
+        entityManager.remove(department);
+    }
+
 }

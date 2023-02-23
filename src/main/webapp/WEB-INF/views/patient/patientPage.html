@@ -47,8 +47,13 @@
             <td th:text="${patient.phoneNumber}"></td>
             <td th:text="${patient.hospital.name}"></td>
             <td>
-                <a th:href="@{/patients/{hospitalId}(hospitalId=${patient.hospital.id})/{patientId}/edit(patientId=${patient.getId()})}">
+                <a th:href="@{/patients/edit/{id}(id=${patient.id})}">
                     <button class="btn btn-primary" type="submit">Edit</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/patients/{hospitalId}/{id}/delete(hospitalId=${hospitalId},id=${patient.id})}">
+                    <button class="btn btn-primary" type="submit">Delete</button>
                 </a>
             </td>
         </tr>

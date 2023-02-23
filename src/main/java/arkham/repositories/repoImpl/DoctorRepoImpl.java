@@ -2,6 +2,7 @@ package arkham.repositories.repoImpl;
 
 import arkham.models.Department;
 import arkham.models.Doctor;
+import arkham.models.Hospital;
 import arkham.repositories.DoctorRepo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -23,7 +24,7 @@ public class DoctorRepoImpl implements DoctorRepo {
     private final EntityManager entityManager;
     @Override
     public List<Doctor> getAllDoctors(Long id) {
-        return entityManager.createQuery("select d from Doctor d join d.hospital f where f.id=:id",
+        return entityManager.createQuery("select d from Doctor d join d.hospital h where h.id= :id",
                 Doctor.class).setParameter("id",id).getResultList();
     }
 
@@ -38,8 +39,13 @@ public class DoctorRepoImpl implements DoctorRepo {
     }
 
     @Override
-    public void update(Doctor doctor) {
-        entityManager.merge(doctor);
+    public void update(Long doctorId,Doctor doctor) {
+        Doctor doctor1 = entityManager.find(Doctor.class, doctorId);
+        doctor1.setFirsName(doctor.getFirsName());
+        doctor1.setLastName(doctor.getLastName());
+        doctor1.setEmail(doctor.getEmail());
+        doctor1.setPosition(doctor.getPosition());
+        entityManager.merge(doctor1);
     }
 
     @Override
@@ -52,5 +58,11 @@ public class DoctorRepoImpl implements DoctorRepo {
 
         entityManager.merge(department);
         entityManager.merge(doctor);
+    }
+
+    @Override
+    public void deleteDoctor(Long id) {
+        Doctor doctor = entityManager.find(Doctor.class, id);
+        entityManager.remove(doctor);
     }
 }
