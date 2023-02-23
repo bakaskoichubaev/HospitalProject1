@@ -54,6 +54,8 @@ public class DoctorServiceImpl implements DoctorService {
         doctorRepo.update(doctorId, doctor);
     }
 
+
+    //1
     @Override
     public void assignDoctor(Long departmentId, Long doctorId) {
         doctorRepo.assignDoctor(departmentId, doctorId);

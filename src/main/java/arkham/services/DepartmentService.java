@@ -22,4 +22,7 @@ public interface DepartmentService {
 
 
     void deletePatient(Long id);
+
+
+
 }

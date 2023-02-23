@@ -48,6 +48,10 @@ public class DoctorRepoImpl implements DoctorRepo {
         entityManager.merge(doctor1);
     }
 
+
+
+
+    //1
     @Override
     public void assignDoctor(Long departmentId, Long doctorId) {
         Department department = entityManager.find(Department.class, departmentId);
@@ -59,6 +63,9 @@ public class DoctorRepoImpl implements DoctorRepo {
         entityManager.merge(department);
         entityManager.merge(doctor);
     }
+
+
+
 
     @Override
     public void deleteDoctor(Long id) {

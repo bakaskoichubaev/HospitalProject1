@@ -23,4 +23,7 @@ public interface DepartmentRepo {
 
 
     void delete(Long id);
+
+
+
 }

@@ -37,6 +37,9 @@ public class HospitalApi {
         return "redirect:/hospitals";
     }
 
+
+
+
     @DeleteMapping("{hospitalId}/delete")
     public String deleteHospital(@PathVariable("hospitalId") Long hospitalId){
         hospitalService.deleteHospital(hospitalId);

@@ -20,17 +20,13 @@ import org.springframework.web.bind.annotation.*;
 public class AppointmentApi {
     private final AppointmentService appointmentService;
     private final PatientService patientService;
-    private final HospitalService hospitalService;
 
     private final DoctorService doctorService;
     private final DepartmentService departmentService;
 
-    @GetMapping("{hospitalId}")
+    @GetMapping("/{hospitalId}")
     public String getAllAppointments(Model model, @PathVariable Long hospitalId){
         model.addAttribute("appointments",appointmentService.findAll(hospitalId));
-        model.addAttribute("patients",patientService.findAll(hospitalId));
-        model.addAttribute("departments", departmentService.findAll(hospitalId));
-        model.addAttribute("doctors", doctorService.getAllDoctors(hospitalId));
         model.addAttribute("hospitalId", hospitalId);
         return "appointment/appointmentPage";
     }

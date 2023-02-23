@@ -35,9 +35,8 @@ public class Doctor {
 
     private String email;
 
-    @ManyToMany(mappedBy = "doctors", cascade = {DETACH, REFRESH, MERGE, PERSIST}, fetch = LAZY)
+    @ManyToMany( cascade = {DETACH, REFRESH, MERGE, PERSIST})
     private List<Department> departments = new ArrayList<>();
-
     public void addDepartment(Department department) {
         if (departments == null) {
             departments= new ArrayList<>();
@@ -45,10 +44,10 @@ public class Doctor {
         departments.add(department);
     }
 
-    @OneToMany(mappedBy = "doctor", cascade = {DETACH, MERGE, REFRESH, PERSIST}, fetch = LAZY)
+    @OneToMany(mappedBy = "doctor", cascade = {DETACH, MERGE, REFRESH, PERSIST})
     private List<Appointment> appointments = new ArrayList<>();
 
-    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = EAGER)
+    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST})
     private Hospital hospital;
 
 

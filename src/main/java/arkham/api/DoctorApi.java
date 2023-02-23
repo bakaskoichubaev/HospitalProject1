@@ -41,7 +41,8 @@ public class DoctorApi{
     }
 
     @PostMapping("/save/{hospitalId}")
-    public String save(@ModelAttribute("newDoctor")Doctor doctor, @PathVariable Long hospitalId){
+    public String save(@ModelAttribute("newDoctor")Doctor doctor,
+                       @PathVariable("hospitalId") Long hospitalId){
         doctorService.save(hospitalId, doctor);
         return "redirect:/doctors/" + hospitalId;
     }
@@ -85,6 +86,18 @@ public class DoctorApi{
         doctorService.deleteDoctor(id);
         return"redirect:/doctors/" + hospitalId;
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

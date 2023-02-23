@@ -41,8 +41,6 @@ public class Appointment {
     @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST})
     private Department department;
 
-    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST})
-    private Hospital hospital;
 
     @Transient
     private Long patientId;

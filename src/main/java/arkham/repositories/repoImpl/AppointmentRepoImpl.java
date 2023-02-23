@@ -1,12 +1,13 @@
 package arkham.repositories.repoImpl;
 
 import arkham.models.Appointment;
+import arkham.models.Hospital;
 import arkham.repositories.AppointmentRepo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,11 +22,15 @@ public class AppointmentRepoImpl implements AppointmentRepo {
     @PersistenceContext
     private final EntityManager entityManager;
     @Override
-    public List<Appointment> findAll(Long id) {
-        return entityManager.createQuery("select a from Appointment a where a.doctor.id=:id", Appointment.class)
-                .setParameter("id",id).getResultList();
+    public List<Appointment> findAll(Long hospitalId) {
+        return entityManager.createQuery("select a from Hospital h join h.appointments a where h.id=:id", Appointment.class)
+                .setParameter("id", hospitalId)
+                .getResultList();
     }
 
+
+
+    @Transactional
     @Override
     public Appointment findById(Long appointmentId) {
         return entityManager.find(Appointment.class, appointmentId);

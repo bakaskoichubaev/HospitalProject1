@@ -52,18 +52,7 @@ public class PatientServiceImpl implements PatientService {
         patient.setHospital(hospitalById);
         patientRepo.save(hospitalId,patient);
     }
-//    @Override
-//    public void save(Long hospitalId, Department department) throws BudRequestExeption {
-//        Hospital hospital = hospitalRepo.getHospitalById(hospitalId);
-//        for (Department dep : departmentRepo.findAll(hospital.getId())) {
-//            if (dep.getName().equals(department.getName())) {
-//                throw new BudRequestExeption();
-//            }
-//        }
-//        hospital.addDepartment(department);
-//        department.setHospital(hospital);
-//        departmentRepo.save(department);
-//    }
+
 
     @Override
     public void deletePatient(Long id) {

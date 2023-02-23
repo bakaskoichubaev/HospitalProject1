@@ -46,10 +46,11 @@ public class PatientRepoImpl implements PatientRepo {
 
     @Override
     public void save(Long hospitalId,Patient patient) {
+        entityManager.merge(patient);
         Hospital hospital = entityManager.find(Hospital.class, hospitalId);
         hospital.addPatient(patient);
         patient.setHospital(hospital);
-        entityManager.merge(patient);
+
     }
 
     @Override

@@ -41,6 +41,10 @@
                     <button class="btn btn-primary" type="submit">Delete</button>
                 </a>
             </td>
+
+
+
+<!--            1-->
             <td>
                 <form th:method="POST"
                       th:action="@{/departments/{hospitalId}/{departmentId}/assignDoctor(hospitalId=${hospitalId},departmentId=${department.getId()})}">
@@ -54,6 +58,11 @@
                 </form>
             </td>
         </tr>
+
+
+
+
+
         </tbody>
     </table>
     <li class="nav-item">
