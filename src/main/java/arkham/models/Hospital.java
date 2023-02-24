@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.sql.results.graph.collection.internal.EagerCollectionAssembler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class Hospital {
         this.image = image;
     }
 
-    @OneToMany(mappedBy = "hospital",cascade = {ALL})
+    @OneToMany(mappedBy = "hospital",cascade = {ALL},fetch = LAZY)
     private List<Doctor> doctors = new ArrayList<>();
     public void addDoctor(Doctor doctor){
         if (doctors==null){
@@ -46,7 +47,7 @@ public class Hospital {
         doctors.add(doctor);
     }
 
-    @OneToMany(mappedBy = "hospital", cascade = {ALL})
+    @OneToMany(mappedBy = "hospital", cascade = {ALL},fetch = LAZY)
     private List<Patient> patients = new ArrayList<>();
     public void addPatient(Patient patient){
         if (patients==null){
@@ -55,7 +56,7 @@ public class Hospital {
         patients.add(patient);
     }
 
-    @OneToMany(mappedBy = "hospital",cascade = {ALL})
+    @OneToMany(mappedBy = "hospital",cascade = {ALL},fetch = LAZY)
     private List<Department> departments = new ArrayList<>();
     public void addDepartment(Department department){
         if (departments==null){
@@ -64,7 +65,7 @@ public class Hospital {
         departments.add(department);
     }
 
-    @OneToMany(cascade = {ALL})
+    @OneToMany(cascade = {ALL},fetch = EAGER)
     private List<Appointment> appointments = new ArrayList<>();
     public void addAppointment(Appointment appointment) {
         if (appointments==null){

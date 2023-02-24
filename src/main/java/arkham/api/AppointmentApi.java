@@ -2,6 +2,7 @@ package arkham.api;
 
 import arkham.App;
 import arkham.models.Appointment;
+import arkham.models.Doctor;
 import arkham.models.Patient;
 import arkham.models.enums.Gender;
 import arkham.services.*;
@@ -25,28 +26,46 @@ public class AppointmentApi {
     private final DepartmentService departmentService;
 
     @GetMapping("/{hospitalId}")
-    public String getAllAppointments(Model model, @PathVariable Long hospitalId){
+    public String getAllAppointments(Model model,
+                                     @PathVariable("hospitalId") Long hospitalId){
         model.addAttribute("appointments",appointmentService.findAll(hospitalId));
-        model.addAttribute("hospitalId", hospitalId);
+//        model.addAttribute("hospitalId", hospitalId);
         return "appointment/appointmentPage";
     }
 
     @GetMapping("/new/{hospitalId}")
-    public String addAppointment(@PathVariable("hospitalId") Long hospitalId,
+    public String addAppointment(@PathVariable Long hospitalId,
                                  Model model){
-        Appointment appointment = new Appointment();
-        model.addAttribute("newAppointment", appointment);
+        model.addAttribute("newAppointment", new Appointment());
         model.addAttribute("patients",patientService.findAll(hospitalId));
         model.addAttribute("departments", departmentService.findAll(hospitalId));
         model.addAttribute("doctors", doctorService.getAllDoctors(hospitalId));
-        model.addAttribute("hospitalId", hospitalId);
+        model.addAttribute(hospitalId);
         return "appointment/saveAppointment";
     }
 
+
     @PostMapping("/save/{hospitalId}")
-    public String save(@PathVariable Long hospitalId,
-                       Appointment appointment){
+    public String save(@PathVariable("hospitalId") Long hospitalId,
+                       @ModelAttribute("newAppointment") Appointment appointment){
         appointmentService.save(hospitalId,appointment);
+        return "redirect:/appointments/" + hospitalId;
+    }
+
+
+
+    @GetMapping("/edit/{appointmentId}")
+    public String edit(@PathVariable("appointmentId") Long appointmentId, Model model){
+        Appointment appointment = appointmentService.findById(appointmentId);
+        model.addAttribute("appointment", appointmentService.findById(appointmentId));
+        model.addAttribute("hospitalId", appointment.getDoctor().getHospital().getId());
+        return "appointment/update";
+    }
+    @PutMapping("/{hospitalId}/{appointmentId}/update")
+    public String update(@ModelAttribute("appointment")Appointment appointment,
+                         @PathVariable("appointmentId")Long appointmentId,
+                         @PathVariable("hospitalId")Long hospitalId){
+        appointmentService.update(appointmentId, appointment);
         return "redirect:/appointments/" + hospitalId;
     }
 
@@ -57,28 +76,12 @@ public class AppointmentApi {
 
 
 
+    @DeleteMapping("/{hospitalId}/{appointmentId}/delete")
+    public String deleteDoctor(@PathVariable("appointmentId")Long appointmentId,
+                               @PathVariable("hospitalId")Long hospitalId){
+        appointmentService.deleteAppointment(appointmentId);
+        return"redirect:/appointments/" + hospitalId;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-//    @GetMapping("{appointmentId}/edit")
-//    public String edit(@PathVariable("appointmentId") Long appointmentId, Model model){
-//        model.addAttribute("appointment", appointmentService.findById(appointmentId));
-//        return "appointment/update";
-//    }
-//    @PostMapping("{id}/update")
-//    public String update(@ModelAttribute("appointment")Appointment appointment){
-//        appointmentService.update(appointment);
-//        return "redirect:/appointments";
-//    }
 
 }

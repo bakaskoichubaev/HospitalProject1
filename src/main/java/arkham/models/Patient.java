@@ -37,17 +37,17 @@ public class Patient {
 
     private String email;
 
-    public Patient(String firstName, String lastName, String phoneNumber, Gender gender, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.gender = gender;
-        this.email = email;
-    }
+//    public Patient(String firstName, String lastName, String phoneNumber, Gender gender, String email) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.phoneNumber = phoneNumber;
+//        this.gender = gender;
+//        this.email = email;
+//    }
 
-    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST})
+    @ManyToOne(cascade = {DETACH,MERGE,PERSIST, REFRESH},fetch = EAGER)
     private Hospital hospital;
 
-    @OneToMany(mappedBy = "patient", cascade = {ALL}, fetch = LAZY)
+    @OneToMany(mappedBy = "patient", cascade = {ALL},fetch = EAGER)
     private List<Appointment> appointments = new ArrayList<>();
 }

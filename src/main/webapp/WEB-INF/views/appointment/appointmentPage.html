@@ -9,36 +9,46 @@
     <a th:href="@{/hospitals}">
         <button class="btn btn-primary" type="button">back</button>
     </a>
-</div>
-<div class="container mt-3">
-    <table class="table table-striped">
-        <thead class="thead-dark">
-        <tr>
-            <th>Id</th>
-            <th>Date</th>
-            <th>Department</th>
-            <th>Doctor</th>
-            <th>Patient</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="appointment : ${appointments}">
-            <td th:text="${appointment.id}"></td>
-            <td th:text="${appointment.date}"></td>
-            <td th:text="${appointment.department.name}"></td>
-            <td th:text="${appointment.doctor.firsName}"></td>
-            <td th:text="${appointment.patient.firstName}"></td>
-            <td>
-                <a th:href="@{/appointments/{hospitalId}(hospitalId=${appointment.hospital.})/{doctorId}/edit(doctorId=${doctor.getId()})}">
-                    <button class="btn btn-primary" type="submit">Edit</button>
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
     <li class="nav-item">
         <a class="nav-link" th:href="@{/appointments/new/{id}(id=${hospitalId})}" href="#">Add new Appointment</a>
     </li>
+</div>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Patient Name</th>
+            <th>Department Name</th>
+            <th>Doctor Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="appointment:${appointments}">
+            <td th:text="${appointment.getId()}"></td>
+            <td th:text="${appointment.getDate()}"></td>
+            <td th:text="${appointment.getPatient().lastName}"></td>
+            <td th:text="${appointment.getDepartment().name}"></td>
+            <td th:text="${appointment.getDoctor().lastName}"></td>
+
+            <td class="div">
+                <form th:method="GET"
+                      th:action="@{/appointments/edit/{appointmentId}(appointmentId=${appointment.getId()})}">
+                    <input type="submit" th:value="Update"/>
+                </form>
+            </td>
+
+            <td>
+                <form th:method="DELETE"
+                      th:action="@{/appointments/{hospitalId}/{appointmentId}/delete(hospitalId=${hospitalId},appointmentId=${appointment.getId()})}">
+                    <input type="submit" th:value="Delete"/>
+                </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </body>

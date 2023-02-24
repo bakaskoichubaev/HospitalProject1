@@ -5,129 +5,7 @@
     <title>Appointment</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <style>
-        .form-container {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 130px auto;
-            max-width: 500px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
-        }
-
-        body {
-            background-image: url("https://i.pinimg.com/236x/2d/67/f9/2d67f9834649b584682ab58606f5a27e.jpg");
-            background-size: cover;
-        }
-
-        .back {
-            position: absolute;
-            top: 30px;
-            left: 90%;
-            transform: translate(-50%, -50%);
-        }
-
-        html {
-            box-sizing: border-box;
-            font-size: 20px;
-            line-height: 1.6;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-            color: #878787;
-        }
-
-        *, *::before, *:after {
-            box-sizing: inherit;
-            padding: 0;
-            margin: 0;
-        }
-
-        main {
-            margin: 1rem auto;
-            width: 90%;
-            max-width: 1000px;
-        }
-
-
-        /*********************
-                Form
-        *********************/
-        select, option, input, label, button {
-            padding: 0.2rem 1rem;
-            font-size: 1.2rem;
-            color: inherit;
-        }
-
-        .form-box {
-            padding: 0.5rem 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-box label {
-            display: none;
-        }
-
-        .form-box input,
-        .form-box select,
-        .form-box textarea {
-            flex-basis: 100%;
-        }
-
-        .form-box button {
-
-        }
-
-        /*******************************
-                Media Queries
-        *******************************/
-        @media all and (min-width: 500px) {
-            .form-box {
-
-            }
-
-            .form-box label {
-                display: block;
-            }
-
-            .form-box input,
-            .form-box select,
-            .form-box textarea {
-
-            }
-
-            .form-box button {
-
-            }
-        }
-
-        @media all and (min-width: 600px) {
-            .form-box {
-                flex-direction: row;
-            }
-
-            .form-box label {
-                flex-basis: 9rem;
-                flex-grow: 0;
-                flex-shrink: 0;
-            }
-
-            .form-box input,
-            .form-box select,
-            .form-box textarea {
-                flex-basis: 0;
-                flex-grow: 1;
-                flex-shrink: 1;
-            }
-
-            .form-box button {
-                margin-left: 9rem;
-            }
-        }
-        .form-container{
-            margin-top: 13%;
-        }
-    </style>
 
 </head>
 <body class="body">
@@ -136,49 +14,78 @@
     <button  >back</button>
 </a>
 
-<div class="form-container">
-    <form name="my-form" th:action="@{/appointments/save/{hospitalId}(hospitalId=${hospitalId})}"
-          th:method="POST" th:object="${newAppointment}">
+<!--<div class="form-container">-->
+<!--    <form name="my-form" th:action="@{/appointments/save/{hospitalId}(hospitalId=${hospitalId})}"-->
+<!--          th:method="POST" th:object="${newAppointment}">-->
 
+<!--        <div>-->
+<!--            <label for="birthday">Recording date:</label>-->
+<!--            <input type="date" th:field="*{date}" id="birthday" name="birthday"-->
+<!--                   min="2023-02-20" max="2025-12-31" required>-->
+<!--        </div>-->
+
+<!--        <div class="form-box">-->
+<!--            <label for="domain">Patient</label>-->
+<!--            <select th:field="*{patientId}" id="domain" name="domain" required>-->
+<!--                <option value=""> >>select an patients<<< </option>-->
+<!--                <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.firstName}" class="form-control form-control-lg">Patients-->
+<!--                </option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--        <div class="form-box">-->
+<!--            <label for="doctor">Doctor</label>-->
+<!--            <select th:field="*{doctorId}" id="doctor" name="domain" required >-->
+<!--                <option value=""> >>>>select an Doctors<<<< </option>-->
+<!--                <option th:each="doctor : ${doctors}" th:value="${doctor.getId()}"-->
+<!--                        th:text="${doctor.getLastName()+' '+doctor.getFirsName()()}">Doctor-->
+<!--                </option>-->
+<!--            </select>-->
+<!--        </div>-->
+
+<!--        <div class="form-box">-->
+<!--            <label for="dep">Department</label>-->
+<!--            <select th:field="*{departmentId}" id="dep" name="domain" required>-->
+<!--                <option value=""> >>>>select an Departments<<<< </option>-->
+<!--                <option th:each="dep : ${departments}" th:value="${dep.getId()}" th:text="${dep.getName()}">dep</option>-->
+<!--            </select>-->
+<!--        </div>-->
+
+<!--        <div class="form-box">-->
+<!--            <button class="btn btn-primary-dan"  id="btnSend">Send</button>-->
+<!--        </div>-->
+
+<!--    </form>-->
+<!--</div>-->
+
+<form th:action="@{/appointments/save/{hospitalId}(hospitalId=${hospitalId})}" th:object="${newAppointment}" method="POST">
+    <input type="hidden" th:field="*{id}">
+    <div>
+        <label for="date">date</label>
+        <input type="date" th:field="*{date}" id="date">
+    </div>
+
+    <div>
+        <select th:field="*{departmentId}"  required>
+            <option value="">Select a department</option>
+            <option th:each="department : ${departments}" th:value="${department.id}"
+                    th:text="${department.name}"></option>
+        </select>
+
+        <select th:field="*{patientId}"  required>
+            <option value="">--Select a patient--</option>
+            <option th:each="patient : ${patients}" th:value="${patient.id}"
+                    th:text="${patient.lastName}"></option>
+        </select>
+        <select th:field="*{doctorId}"  required>
+            <option value="">--Select a doctor--</option>
+            <option th:each="doctor : ${doctors}" th:value="${doctor.id}"
+                    th:text="${doctor.lastName}"></option>
+        </select>
         <div>
-            <label for="birthday">Recording date:</label>
-            <input type="date" th:field="*{date}" id="birthday" name="birthday"
-                   min="2023-02-20" max="2025-12-31" required>
+            <input type="submit" value="Save"/>
         </div>
-
-        <div class="form-box">
-            <label for="domain">Patient</label>
-            <select th:field="*{patientId}" id="domain" name="domain" required>
-                <option value=""> >>select an patients<<< </option>
-                <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.firstName}" class="form-control form-control-lg">Patients
-                </option>
-            </select>
-        </div>
-        <div class="form-box">
-            <label for="doctor">Doctor</label>
-            <select th:field="*{doctorId}" id="doctor" name="domain" required >
-                <option value=""> >>>>select an Doctors<<<< </option>
-                <option th:each="doctor : ${doctors}" th:value="${doctor.getId()}"
-                        th:text="${doctor.getLastName()+' '+doctor.getFirsName()()}">Doctor
-                </option>
-            </select>
-        </div>
-
-        <div class="form-box">
-            <label for="dep">Department</label>
-            <select th:field="*{departmentId}" id="dep" name="domain" required>
-                <option value=""> >>>>select an Departments<<<< </option>
-                <option th:each="dep : ${departments}" th:value="${dep.getId()}" th:text="${dep.getName()}">dep</option>
-            </select>
-        </div>
-
-        <div class="form-box">
-            <button class="btn btn-primary-dan"  id="btnSend">Send</button>
-        </div>
-
-    </form>
-</div>
-
+    </div>
+</form>
 
 
 </body>

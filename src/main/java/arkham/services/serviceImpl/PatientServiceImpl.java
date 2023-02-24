@@ -50,7 +50,7 @@ public class PatientServiceImpl implements PatientService {
         Hospital hospitalById = hospitalRepo.getHospitalById(hospitalId);
         hospitalById.addPatient(patient);
         patient.setHospital(hospitalById);
-        patientRepo.save(hospitalId,patient);
+        patientRepo.save(patient);
     }
 
 

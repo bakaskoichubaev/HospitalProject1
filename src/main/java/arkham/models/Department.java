@@ -30,7 +30,7 @@ public class Department {
     private String name;
 
 
-    @ManyToMany(mappedBy = "departments",cascade = {ALL}, fetch = LAZY)
+    @ManyToMany(mappedBy = "departments",cascade = {DETACH,MERGE,PERSIST, REFRESH},fetch = LAZY)
     private List<Doctor> doctors = new ArrayList<>();
     public void addDoctor(Doctor doctor){
         if (doctors==null){
@@ -39,10 +39,8 @@ public class Department {
         doctors.add(doctor);
     }
 
-    @ManyToOne(cascade = {REFRESH,DETACH, MERGE, PERSIST})
+    @ManyToOne(cascade = {REFRESH,DETACH, MERGE, PERSIST},fetch = EAGER)
     private Hospital hospital;
-    @OneToMany(mappedBy = "department",cascade = ALL)
-    private List<Appointment>appointments;
 
 
 }

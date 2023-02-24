@@ -65,8 +65,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void deletePatient(Long id) {
-        departmentRepo.delete(id);
+    public void deletePatient(Long id, Long hospitalId) {
+        departmentRepo.delete(id, hospitalId);
     }
 
 

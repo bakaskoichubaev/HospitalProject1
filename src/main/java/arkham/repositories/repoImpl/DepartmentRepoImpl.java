@@ -1,9 +1,10 @@
 package arkham.repositories.repoImpl;
 
 import arkham.models.Department;
-import arkham.models.Doctor;
+import arkham.models.Hospital;
 import arkham.repositories.DepartmentRepo;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -19,6 +20,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class DepartmentRepoImpl implements DepartmentRepo {
+    @PersistenceContext
     private final EntityManager entityManager;
 
     @Override
@@ -43,14 +45,24 @@ public class DepartmentRepoImpl implements DepartmentRepo {
     public void update(Long departmentId, Department department) {
         Department department1 = entityManager.find(Department.class, departmentId);
         department1.setName(department.getName());
-        entityManager.merge(department1);
+        entityManager.merge(department);
     }
 
     @Override
-    public void delete(Long id) {
-        Department department = entityManager.find(Department.class, id);
-        department.setHospital(null);
-        entityManager.remove(department);
+    public void delete(Long id, Long hospitalId) {
+//        Department department = entityManager.find(Department.class, id);
+//        department.setHospital(null);
+//        department.setDoctors(null);
+//        entityManager.remove(department);
+
+//        entityManager.createQuery("delete from Department where id=:id",
+//                Department.class).setParameter("id",id).executeUpdate();
+
+        List<Hospital> hospitals = entityManager.createQuery("select h from Hospital h where id=:id",
+                Hospital.class).setParameter("id", hospitalId).getResultList();
+
+        hospitals.forEach(d -> d.getDepartments().removeIf(s -> s.getId().equals(id)));
+
     }
 
 

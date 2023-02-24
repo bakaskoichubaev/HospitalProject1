@@ -44,36 +44,32 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public void update(Appointment appointment) {
-        appointmentRepo.update(appointment);
+    public void update(Long appointmentId, Appointment appointment) {
+        appointmentRepo.update(appointmentId, appointment);
     }
+
 
 
     @Transactional
     @Override
-    public void save(Long hospitalId, Appointment appointment) {
-//        Hospital hospital = hospitalRepo.getHospitalById(hospitalId);
-//
-//        Appointment newAppointment = new Appointment();
-//        newAppointment.setId(appointment.getId());
-//        newAppointment.setDate(appointment.getDate());
-//        newAppointment.setDoctor(doctorRepo.findById(appointment.getDoctorId()));
-//        newAppointment.setDepartment(departmentRepo.findById(appointment.getDepartmentId()));
-//        newAppointment.setPatient(patientRepo.findById(appointment.getPatientId()));
-//
-//        hospital.addAppointment(newAppointment);
-//        appointmentRepo.save(newAppointment);
-
+    public Appointment save(Long hospitalId, Appointment appointment) {
 
         Hospital hospital= hospitalRepo.getHospitalById(hospitalId);
         Appointment newAppointment=new Appointment();
-        newAppointment.setId(appointment.getId());
         newAppointment.setDate(appointment.getDate());
+        newAppointment.setId(appointment.getId());
+
         newAppointment.setDoctor(doctorRepo.findById(appointment.getDoctorId()));
         newAppointment.setDepartment(departmentRepo.findById(appointment.getDepartmentId()));
         newAppointment.setPatient(patientRepo.findById(appointment.getPatientId()));
         hospital.addAppointment(newAppointment);
-        appointmentRepo.save(newAppointment);
+        return appointmentRepo.save(newAppointment);
     }
+
+    @Override
+    public void deleteAppointment(Long appointmentId) {
+        appointmentRepo.deleteAppointment(appointmentId);
+    }
+
 
 }

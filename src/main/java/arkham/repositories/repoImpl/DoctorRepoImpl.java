@@ -70,6 +70,13 @@ public class DoctorRepoImpl implements DoctorRepo {
     @Override
     public void deleteDoctor(Long id) {
         Doctor doctor = entityManager.find(Doctor.class, id);
+        doctor.setHospital(null);
+        doctor.setAppointments(null);
+        doctor.setDepartments(null);
         entityManager.remove(doctor);
+
+//        entityManager.createQuery("delete from Doctor where id=:id", Doctor.class)
+//                .setParameter("id",id).executeUpdate();
+
     }
 }

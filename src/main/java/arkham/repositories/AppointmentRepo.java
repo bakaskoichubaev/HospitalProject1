@@ -15,8 +15,9 @@ public interface AppointmentRepo {
 
     Appointment findById(Long appointmentId);
 
-    void update(Appointment appointment);
+    void update(Long appointmentId, Appointment appointment);
 
-    void save(Appointment appointment);
+    Appointment save(Appointment appointment);
 
+    void deleteAppointment(Long appointmentId);
 }

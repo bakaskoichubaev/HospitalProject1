@@ -22,7 +22,7 @@ public interface DepartmentRepo {
     void update(Long departmentId,Department department);
 
 
-    void delete(Long id);
+    void delete(Long id, Long hospitalId);
 
 
 

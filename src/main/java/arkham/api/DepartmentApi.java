@@ -45,7 +45,7 @@ public class DepartmentApi {
 
     @PostMapping("/save/{hospitalId}")
     public String save(@ModelAttribute("newDepartment") Department department,
-                       @PathVariable Long hospitalId) {
+                       @PathVariable("hospitalId") Long hospitalId) {
         departmentService.save(hospitalId, department);
         return "redirect:/departments/"+hospitalId;
     }
@@ -57,12 +57,6 @@ public class DepartmentApi {
         model.addAttribute("hospitalId", id);
         return "/department/saveDepartment";
     }
-
-
-
-
-
-
 
 
 //1
@@ -109,7 +103,7 @@ public class DepartmentApi {
     @GetMapping("/{hospitalId}/{departmentId}/delete")
     public String deletePatient(@PathVariable("departmentId")Long id,
                                 @PathVariable("hospitalId")Long hospitalId){
-        departmentService.deletePatient(id);
+        departmentService.deletePatient(id, hospitalId);
         return"redirect:/departments/" + hospitalId;
     }
 

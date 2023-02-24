@@ -19,7 +19,7 @@ public class HospitalApi {
     private final HospitalService hospitalService;
 
     @GetMapping()
-    public String getAllDepartments(Model model){
+    public String getAllHospitals(Model model){
         model.addAttribute("hospitals", hospitalService.findAll());
         return "hospital/hospitalPage";
     }

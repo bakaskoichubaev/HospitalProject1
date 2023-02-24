@@ -21,7 +21,7 @@ public interface DepartmentService {
     void update(Long departmentId,Department department);
 
 
-    void deletePatient(Long id);
+    void deletePatient(Long id,Long hospitalId);
 
 
 

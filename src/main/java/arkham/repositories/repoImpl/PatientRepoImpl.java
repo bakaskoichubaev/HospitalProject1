@@ -45,11 +45,8 @@ public class PatientRepoImpl implements PatientRepo {
     }
 
     @Override
-    public void save(Long hospitalId,Patient patient) {
+    public void save(Patient patient) {
         entityManager.merge(patient);
-        Hospital hospital = entityManager.find(Hospital.class, hospitalId);
-        hospital.addPatient(patient);
-        patient.setHospital(hospital);
 
     }
 
@@ -57,6 +54,10 @@ public class PatientRepoImpl implements PatientRepo {
     public void deletePatient(Long id) {
         Patient patient = entityManager.find(Patient.class, id);
         patient.setHospital(null);
+        patient.setAppointments(null);
         entityManager.remove(patient);
+
+//        entityManager.createQuery("delete from Patient where id=:id",
+//                Patient.class).setParameter("id", id).executeUpdate();
     }
 }

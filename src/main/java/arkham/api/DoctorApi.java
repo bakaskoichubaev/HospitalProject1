@@ -81,7 +81,7 @@ public class DoctorApi{
 
 
     @GetMapping("/{hospitalId}/{doctorId}/delete")
-    public String deletePatient(@PathVariable("doctorId")Long id,
+    public String deleteDoctor(@PathVariable("doctorId")Long id,
                                 @PathVariable("hospitalId")Long hospitalId){
         doctorService.deleteDoctor(id);
         return"redirect:/doctors/" + hospitalId;
