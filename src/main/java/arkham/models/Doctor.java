@@ -35,7 +35,7 @@ public class Doctor {
 
     private String email;
 
-    @ManyToMany( cascade = {DETACH,MERGE,PERSIST, REFRESH},fetch = LAZY)
+    @ManyToMany( cascade = {DETACH,MERGE,PERSIST, REFRESH},fetch = EAGER)
     private List<Department> departments = new ArrayList<>();
     public void addDepartment(Department department) {
         if (departments == null) {

@@ -1,7 +1,6 @@
 package arkham.repositories.repoImpl;
 
 import arkham.models.Appointment;
-import arkham.models.Department;
 import arkham.models.Hospital;
 import arkham.repositories.AppointmentRepo;
 import jakarta.persistence.EntityManager;
@@ -56,14 +55,8 @@ public class AppointmentRepoImpl implements AppointmentRepo {
     }
 
     @Override
-    public void deleteAppointment(Long appointmentId) {
-//        try {
-//            List<Hospital> hospitals = entityManager.createQuery("from Hospital h where h.id=:id", Hospital.class).setParameter("id", appointmentId).getResultList();
-//            hospitals.forEach(s -> s.getAppointments().removeIf(a -> a.getId().equals(appointmentId)));
-//            entityManager.remove(entityManager.find(Appointment.class, appointmentId));
-//        }catch (Exception e){
-//            throw new RuntimeException(e);
-//        }
-        entityManager.createQuery("delete from Appointment where id=:id", Department.class).setParameter("id", appointmentId).executeUpdate();
+    public void deleteAppointment(Hospital hospital, Long appointmentId) {
+        entityManager.merge(hospital);
+        entityManager.createQuery("delete from Appointment where id=:id").setParameter("id", appointmentId).executeUpdate();
     }
 }

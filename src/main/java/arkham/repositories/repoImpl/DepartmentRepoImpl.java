@@ -50,18 +50,18 @@ public class DepartmentRepoImpl implements DepartmentRepo {
 
     @Override
     public void delete(Long id, Long hospitalId) {
-//        Department department = entityManager.find(Department.class, id);
-//        department.setHospital(null);
-//        department.setDoctors(null);
-//        entityManager.remove(department);
+        Department department = entityManager.find(Department.class, id);
+        department.setHospital(null);
+        department.setDoctors(null);
+        entityManager.remove(department);
 
 //        entityManager.createQuery("delete from Department where id=:id",
 //                Department.class).setParameter("id",id).executeUpdate();
 
-        List<Hospital> hospitals = entityManager.createQuery("select h from Hospital h where id=:id",
-                Hospital.class).setParameter("id", hospitalId).getResultList();
-
-        hospitals.forEach(d -> d.getDepartments().removeIf(s -> s.getId().equals(id)));
+//        List<Hospital> hospitals = entityManager.createQuery("select h from Hospital h where id=:id",
+//                Hospital.class).setParameter("id", hospitalId).getResultList();
+//
+//        hospitals.forEach(d -> d.getDepartments().removeIf(s -> s.getId().equals(id)));
 
     }
 

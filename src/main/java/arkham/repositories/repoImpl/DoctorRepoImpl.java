@@ -51,7 +51,7 @@ public class DoctorRepoImpl implements DoctorRepo {
 
 
 
-    //1
+
     @Override
     public void assignDoctor(Long departmentId, Long doctorId) {
         Department department = entityManager.find(Department.class, departmentId);

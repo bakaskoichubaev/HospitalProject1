@@ -20,6 +20,6 @@ public interface AppointmentService {
 
     Appointment save(Long hospitalId, Appointment appointment);
 
-    void deleteAppointment(Long appointmentId);
+    void deleteAppointment(Long hospitalId, Long appointmentId);
 
 }

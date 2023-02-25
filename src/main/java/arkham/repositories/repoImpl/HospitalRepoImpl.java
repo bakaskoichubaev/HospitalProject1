@@ -2,6 +2,8 @@ package arkham.repositories.repoImpl;
 
 import arkham.models.Department;
 import arkham.models.Hospital;
+import arkham.repositories.AppointmentRepo;
+import arkham.repositories.DepartmentRepo;
 import arkham.repositories.HospitalRepo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author :ЛОКИ Kelsivbekov
@@ -21,6 +24,7 @@ import java.util.List;
 public class HospitalRepoImpl implements HospitalRepo {
     @PersistenceContext
     private final EntityManager entityManager;
+    private final DepartmentRepo departmentRepo;
     @Override
     public List<Hospital> findAll() {
         return entityManager.createQuery("select h from Hospital h",Hospital.class).getResultList();

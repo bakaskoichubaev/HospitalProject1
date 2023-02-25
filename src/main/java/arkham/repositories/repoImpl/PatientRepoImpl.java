@@ -1,6 +1,6 @@
 package arkham.repositories.repoImpl;
 
-import arkham.models.Hospital;
+
 import arkham.models.Patient;
 import arkham.repositories.PatientRepo;
 import jakarta.persistence.EntityManager;

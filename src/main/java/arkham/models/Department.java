@@ -30,7 +30,7 @@ public class Department {
     private String name;
 
 
-    @ManyToMany(mappedBy = "departments",cascade = {DETACH,MERGE,PERSIST, REFRESH},fetch = LAZY)
+    @ManyToMany(mappedBy = "departments",cascade = {DETACH,MERGE,PERSIST, REFRESH},fetch = EAGER)
     private List<Doctor> doctors = new ArrayList<>();
     public void addDoctor(Doctor doctor){
         if (doctors==null){

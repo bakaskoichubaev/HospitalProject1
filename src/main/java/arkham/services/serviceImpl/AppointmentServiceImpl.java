@@ -5,6 +5,7 @@ import arkham.models.Hospital;
 import arkham.repositories.*;
 import arkham.services.AppointmentService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,8 @@ import java.util.List;
  * @created 17.02.2023
  */
 @Service
-
-
+@RequiredArgsConstructor
+@Transactional
 public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepo appointmentRepo;
     private final DepartmentRepo departmentRepo;
@@ -24,14 +25,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final DoctorRepo doctorRepo;
     private final HospitalRepo hospitalRepo;
 
-    @Autowired
-    public AppointmentServiceImpl(AppointmentRepo appointmentRepo, DepartmentRepo departmentRepo, PatientRepo patientRepo, DoctorRepo doctorRepo, HospitalRepo hospitalRepo) {
-        this.appointmentRepo = appointmentRepo;
-        this.departmentRepo = departmentRepo;
-        this.patientRepo = patientRepo;
-        this.doctorRepo = doctorRepo;
-        this.hospitalRepo = hospitalRepo;
-    }
 
     @Override
     public List<Appointment> findAll(Long id) {
@@ -48,9 +41,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointmentRepo.update(appointmentId, appointment);
     }
 
-
-
-    @Transactional
     @Override
     public Appointment save(Long hospitalId, Appointment appointment) {
 
@@ -67,8 +57,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public void deleteAppointment(Long appointmentId) {
-        appointmentRepo.deleteAppointment(appointmentId);
+    public void deleteAppointment(Long hospitalId, Long appointmentId) {
+        Appointment appointment = appointmentRepo.findById(appointmentId);
+        Hospital hospital = hospitalRepo.getHospitalById(hospitalId);
+        appointment.getDoctor().setAppointments(null);
+        appointment.getPatient().setAppointments(null);
+
+        hospital.getAppointments().remove(appointment);
+
+        appointmentRepo.deleteAppointment(hospital, appointmentId);
     }
 
 

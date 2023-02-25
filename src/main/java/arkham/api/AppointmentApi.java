@@ -79,7 +79,7 @@ public class AppointmentApi {
     @DeleteMapping("/{hospitalId}/{appointmentId}/delete")
     public String deleteDoctor(@PathVariable("appointmentId")Long appointmentId,
                                @PathVariable("hospitalId")Long hospitalId){
-        appointmentService.deleteAppointment(appointmentId);
+        appointmentService.deleteAppointment(hospitalId, appointmentId);
         return"redirect:/appointments/" + hospitalId;
     }
 

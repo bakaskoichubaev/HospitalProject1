@@ -5,10 +5,13 @@ import arkham.models.Patient;
 import arkham.models.enums.Gender;
 import arkham.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 /**
@@ -36,62 +39,59 @@ public class PatientApi {
     }
 
 
-    @PostMapping("/save/{hospitalId}")
-    public String save(@ModelAttribute("newPatient") Patient patient,
-                       @PathVariable Long hospitalId){
-        patientService.save(hospitalId, patient);
-        return "redirect:/patients/" + hospitalId;
-    }
     @GetMapping("/new/{id}")
     public String create(Model model,
-                         @PathVariable("id") Long id){
+                         @PathVariable("id") Long id) {
         model.addAttribute("newPatient", new Patient());
-        model.addAttribute("hospitalId",id);
+        model.addAttribute("hospitalId", id);
         model.addAttribute("male", Gender.MALE);
         model.addAttribute("female", Gender.FEMALE);
         return "/patient/savePatient";
     }
 
+    @PostMapping("/save/{hospitalId}")
+    public String save(@ModelAttribute("newPatient") @Valid Patient patient,
+                       BindingResult bindingResult,
+                       @PathVariable Long hospitalId, Model model) {
 
+        if (bindingResult.hasErrors()) {
+            return "/patient/savePatient";
+        }
+        patientService.save(hospitalId, patient);
+        return "redirect:/patients/" + hospitalId;
 
-
-
-
-
-
-
-
-
-
+    }
 
 
     @GetMapping("/edit/{patientId}")
-    public String edit(@PathVariable("patientId")Long patientId,
-                       Model model){
+    public String edit(@PathVariable("patientId") Long patientId,
+                       Model model) {
         Patient patient = patientService.findById(patientId);
         model.addAttribute("patient", patient);
-        model.addAttribute("hospitalId",patient.getHospital().getId());
+        model.addAttribute("hospitalId", patient.getHospital().getId());
         model.addAttribute("male", Gender.MALE);
         model.addAttribute("female", Gender.FEMALE);
         return "/patient/update";
     }
 
     @PostMapping("/{hospitalId}/{patientId}/update")
-    public String update(@ModelAttribute("patient") Patient patient,
+    public String update(@ModelAttribute("patient") @Valid Patient patient, BindingResult bindingResult,
                          @PathVariable("patientId") Long patientId,
-                         @PathVariable("hospitalId") Long hospitalId){
-        patientService.update(patientId,patient);
+                         @PathVariable("hospitalId") Long hospitalId) {
+
+        if (bindingResult.hasErrors()) {
+            return "/patient/update";
+        }
+        patientService.update(patientId, patient);
         return "redirect:/patients/" + hospitalId;
     }
 
 
-
-
     @GetMapping("/{hospitalId}/{patientId}/delete")
-    public String deletePatient(@PathVariable("patientId")Long id,
-                                @PathVariable("hospitalId")Long hospitalId){
+    public String deletePatient(@PathVariable("patientId") Long id,
+                                @PathVariable("hospitalId") Long hospitalId) {
         patientService.deletePatient(id);
-        return"redirect:/patients/" + hospitalId;
+        return "redirect:/patients/" + hospitalId;
     }
 
 }
