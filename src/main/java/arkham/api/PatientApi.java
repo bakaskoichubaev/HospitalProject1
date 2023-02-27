@@ -1,18 +1,17 @@
 package arkham.api;
-
-import arkham.models.Department;
 import arkham.models.Patient;
 import arkham.models.enums.Gender;
 import arkham.services.PatientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.io.IOException;
+
+
 
 /**
  * @author :ЛОКИ Kelsivbekov

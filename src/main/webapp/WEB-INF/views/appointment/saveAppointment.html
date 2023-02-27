@@ -14,49 +14,6 @@
     <button  >back</button>
 </a>
 
-<!--<div class="form-container">-->
-<!--    <form name="my-form" th:action="@{/appointments/save/{hospitalId}(hospitalId=${hospitalId})}"-->
-<!--          th:method="POST" th:object="${newAppointment}">-->
-
-<!--        <div>-->
-<!--            <label for="birthday">Recording date:</label>-->
-<!--            <input type="date" th:field="*{date}" id="birthday" name="birthday"-->
-<!--                   min="2023-02-20" max="2025-12-31" required>-->
-<!--        </div>-->
-
-<!--        <div class="form-box">-->
-<!--            <label for="domain">Patient</label>-->
-<!--            <select th:field="*{patientId}" id="domain" name="domain" required>-->
-<!--                <option value=""> >>select an patients<<< </option>-->
-<!--                <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.firstName}" class="form-control form-control-lg">Patients-->
-<!--                </option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <div class="form-box">-->
-<!--            <label for="doctor">Doctor</label>-->
-<!--            <select th:field="*{doctorId}" id="doctor" name="domain" required >-->
-<!--                <option value=""> >>>>select an Doctors<<<< </option>-->
-<!--                <option th:each="doctor : ${doctors}" th:value="${doctor.getId()}"-->
-<!--                        th:text="${doctor.getLastName()+' '+doctor.getFirsName()()}">Doctor-->
-<!--                </option>-->
-<!--            </select>-->
-<!--        </div>-->
-
-<!--        <div class="form-box">-->
-<!--            <label for="dep">Department</label>-->
-<!--            <select th:field="*{departmentId}" id="dep" name="domain" required>-->
-<!--                <option value=""> >>>>select an Departments<<<< </option>-->
-<!--                <option th:each="dep : ${departments}" th:value="${dep.getId()}" th:text="${dep.getName()}">dep</option>-->
-<!--            </select>-->
-<!--        </div>-->
-
-<!--        <div class="form-box">-->
-<!--            <button class="btn btn-primary-dan"  id="btnSend">Send</button>-->
-<!--        </div>-->
-
-<!--    </form>-->
-<!--</div>-->
-
 <form th:action="@{/appointments/save/{hospitalId}(hospitalId=${hospitalId})}" th:object="${newAppointment}" method="POST">
     <input type="hidden" th:field="*{id}">
     <div>

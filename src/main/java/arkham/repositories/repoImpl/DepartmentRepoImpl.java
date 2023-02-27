@@ -43,9 +43,13 @@ public class DepartmentRepoImpl implements DepartmentRepo {
 
     @Override
     public void update(Long departmentId, Department department) {
-        Department department1 = entityManager.find(Department.class, departmentId);
-        department1.setName(department.getName());
-        entityManager.merge(department);
+        try {
+            Department department1 = entityManager.find(Department.class, departmentId);
+            department1.setName(department.getName());
+            entityManager.merge(department);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

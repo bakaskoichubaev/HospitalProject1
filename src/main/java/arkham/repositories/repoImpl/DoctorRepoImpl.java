@@ -57,8 +57,12 @@ public class DoctorRepoImpl implements DoctorRepo {
         Department department = entityManager.find(Department.class, departmentId);
         Doctor doctor = entityManager.find(Doctor.class, doctorId);
 
-        doctor.addDepartment(department);
-        department.addDoctor(doctor);
+        try {
+            doctor.addDepartment(department);
+            department.addDoctor(doctor);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
         entityManager.merge(department);
         entityManager.merge(doctor);

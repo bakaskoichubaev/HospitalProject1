@@ -2,70 +2,93 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Hospitals</title>
+  <title>All Companies</title>
+  <style>table,
+  td {
+    border: 1px solid #333333FF;
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+  }
+  tfoot {
+    background-color: #333333FF;
+    color: #FFFFFFFF;
+  }
+  </style>
   <style>
-    .container {
-      display: flex;
-      flex-wrap: wrap;
+    table, th, td {
+      border: 1px solid black;
+      padding: 3px;
     }
   </style>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-        rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-        crossorigin="anonymous">
-  <link  rel="stylesheet" th:src="style.css">
 </head>
 <body>
-<div class="container" style="width: 78%; margin: 0 auto">
-  <div class="card" style="width: 18rem;"
-       th:each="hospital:${hospitals}" >
-    <img th:src="${hospital.getImage()}" object-fit width="223" height="170px" class="card-img-top" alt="Image">
-    <div class="card-body">
-      <h5 class="card-title" th:text="${hospital.getName()}">Hospital</h5>
-      <p class="card-title" th:text="${hospital.getAddress()}">Address</p>
-      <p style="text-align:center;">
-        <form>
-        <a class="btn btn-outline-primary" role="button" th:href="@{/departments/{id}(id=${hospital.id})}">Departments</a>
-        </form>
-      </p>
-      <p style="text-align:center;">
-      <form>
-        <a class="btn btn-outline-primary" role="button" th:href="@{/doctors/{id}(id=${hospital.id})}">Doctors</a>
-      </form>
-      </p>
-      <p style="text-align:center;">
-      <form>
-        <a class="btn btn-outline-primary" role="button" th:href="@{/patients/{id}(id=${hospital.id})}">Patients</a>
-      </form>
-      </p>
-      <p style="text-align:center;">
-      <form>
-        <a class="btn btn-outline-primary" role="button" th:href="@{/appointments/{id}(id=${hospital.id})}">Appointments</a>
-      </form>
-      </p>
-      <p>
-      <form th:method="DELETE" th:action="@{/hospitals/{hospitalId}/delete(hospitalId=${hospital.getId()})}">
-        <input type="submit" class="btn btn-outline-primary"  th:value="  Delete  "/>
-      </form>
 
-      <form th:method="GET" th:action="@{/hospitals/{hospitalId}/edit(hospitalId=${hospital.getId()})}">
-        <input type="submit" class="btn btn-outline-primary"  th:value="  Edit  "/>
-      </form>
-      </p>
-    </div>
-  </div>
-</div>
+
+
+
+<table class="styled-table">
+  <thead>
+  <tr>
+    <th scope="colgroup">Id</th>
+    <th scope="col">Hospital name</th>
+    <th scope="col">Address</th>
+    <th scope="col">Departments</th>
+    <th scope="col">Doctors</th>
+    <th scope="col">Patients</th>
+    <th scope="col">Appointments</th>
+    <th scope="col">Update</th>
+    <th scope="col">Delete</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="hospital: ${hospitals}" class="active-row">
+    <td th:text="${hospital.getId()}"></td>
+    <td th:text="${hospital.getName()}"></td>
+    <td th:text="${hospital.getAddress()}"></td>
+
+
+
+    <td><a th:href="@{/departments/{id}(id=${hospital.id})}">
+      <button>Departments</button>
+    </a>
+    </td>
+    <td><a th:href="@{/doctors/{id}(id=${hospital.id})}">
+      <button>Doctors</button>
+    </a>
+    </td>
+    <td><a th:href="@{/patients/{id}(id=${hospital.id})}">
+      <button>Patients</button>
+    </a>
+    </td>
+    <td><a th:href="@{/appointments/{id}(id=${hospital.id})}">
+      <button>Appointments</button>
+    </a>
+    </td>
+
+
+
+    <td><a th:href="@{/hospitals/{hospitalId}/edit(hospitalId=${hospital.getId()})}">
+      <button>Update</button>
+    </a>
+    </td>
+
+    <td> <form th:method="DELETE" th:action="@{/hospitals/{hospitalId}/delete(hospitalId=${hospital.getId()})}">
+      <input type="submit" class="btn btn-outline-primary"  th:value="  Delete  "/>
+    </form>
+    </a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<br><br><br><br>
+<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add new Hospital"
+       onclick="window.location.href = '/hospitals/new'">
+
+
 </body>
-
-<br>
-<br>
-
-<p style="text-align:center;">
-  <a class="btn btn-outline-primary" role="button" href="/hospitals/new">Add new hospital</a></p>
-
-<br/>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
 </html>
 
 
