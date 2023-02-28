@@ -17,10 +17,7 @@ import static jakarta.persistence.FetchType.*;
 import static jakarta.persistence.GenerationType.*;
 import static jakarta.persistence.CascadeType.*;
 
-/**
- * @author :ЛОКИ Kelsivbekov
- * @created 17.02.2023
- */
+
 @Entity
 @Getter
 @Setter

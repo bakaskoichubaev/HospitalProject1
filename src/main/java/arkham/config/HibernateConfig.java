@@ -18,10 +18,7 @@ import javax.sql.DataSource;
 import java.util.Objects;
 import java.util.Properties;
 
-/**
- * @author :ЛОКИ Kelsivbekov
- * @created 17.02.2023
- */
+
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "arkham")

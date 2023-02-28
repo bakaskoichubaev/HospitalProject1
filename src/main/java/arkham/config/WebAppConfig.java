@@ -11,10 +11,7 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
-/**
- * @author :ЛОКИ Kelsivbekov
- * @created 17.02.2023
- */
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("arkham")

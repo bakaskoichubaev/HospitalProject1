@@ -14,10 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * @author :ЛОКИ Kelsivbekov
- * @created 17.02.2023
- */
 @Repository
 @RequiredArgsConstructor
 @Transactional
